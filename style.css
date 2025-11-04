@@ -26,12 +26,17 @@ html, body {
 .wrapper .preview-box {
     width: 100%;
     height: 320px;
-    border-radius: 5px;
-    border: 2px dashed #C2CDDA;
     text-align: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    border: 2px dashed #C2CDDA;
+}
+
+.preview-box .imgActive {
+    border: 2px solid transparent;
+
 }
 
 .wrapper .cancel-icon {
@@ -43,6 +48,10 @@ html, body {
     font-size: 20px;
     cursor: pointer;
     display: none;
+}
+
+.preview-box.imgActive:hover .cancel-icon {
+    display: block;
 }
 
 .wrapper .cancel-icon:hover {
@@ -96,6 +105,11 @@ html, body {
     transition: all 0.3s ease;
 }
 
+.input-data #field.disabled {
+    color: #B3B3B3;
+    pointer-events: none;
+}
+
 .input-data #field:focus {
     border-color: #4158D0;
 }
@@ -118,6 +132,11 @@ html, body {
     background: linear-gradient(-135deg, #C850C0, #4158D0);
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.input-data #button.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .input-data #button:active {

@@ -19,9 +19,7 @@
     <div class="wrapper">
         <div class="preview-box">
             <div class="cancel-icon"><i class="fas fa-times"></i></div>
-            <div class="img-preview">
-                <!-- <img src="" alt=""> -->
-            </div>
+            <div class="img-preview"></div>
             <div class="content">
                 <div class="img-icon"><i class="far fa-image"></i></div>
                 <div class="text">Paste the image URL below, <br/>to see a preview or download!</div>
@@ -32,6 +30,36 @@
             <input type="submit" id="button" value="Download">
         </form>
     </div>
-    
+    <script>
+        $(document).ready(function() {
+            // If user focus out from the input field
+            $("#field").on("focusout", function() {
+                //Getting user entered img URL
+                let imgURL = $("#field").val();
+                // Validation of img URL extension
+                if (imgURL != "") {
+                    const regPattern = /\.(jpe?g|png|gif|bmp)$/i;
+                    if (regPattern.test(imgURL)) {
+                        // Creates a new img tag to show img
+                        let imgTag = `<img src="${imgURL}" alt="">`;
+                        $(".img-preview").append(imgTag);
+                        $(".preview-box").addClass("imgActive");
+                        $("#button").addClass("active");
+                        $("#field").addClass("disabled");
+                        $(".cancel-icon").on("click", function() {
+                            // On cancel icon click remove the added img tag
+                            $(".preview-box").removeClass("imgActive");
+                            $("#button").removeClass("active");
+                            $("#field").removeClass("disabled");
+                            $(".img-preview img").remove();
+                        });
+                    } else {
+                        alert("Invalid image URL: " + imgURL);
+                        $("#field").val(""); // Clear the input field if pattern not matches
+                    }
+                }
+            });
+        });
+    </script>    
 </body>
 </html>
