@@ -1,3 +1,21 @@
+<?php
+// When Download button is clicked
+if (isset($_POST['downloadBtn'])) {
+    $imgURL = $_POST['field'];
+    $regPattern = '/\.(jpe?g|png|gif|bmp)$/i';
+    if (preg_match($regPattern, $imgURL)) {
+        $initCURL = curl_init($imgURL);
+        curl_setopt($initCURL, CURLOPT_RETURNTRANSFER, true);
+        $downloadImgLink = curl_exec($initCURL);
+        curl_close($initCURL);
+        // Convert the base 64 string to image and force download
+        header("Content-Type: image/jpg"); // You can set the format/extention you want to download
+        header("Content-Disposition: attachment; filename=\"image.jpg\"");
+        echo $downloadImgLink;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +43,9 @@
                 <div class="text">Paste the image URL below, <br/>to see a preview or download!</div>
             </div>
         </div>
-        <form action="" class="input-data">
-            <input type="text" id="field" placeholder="Paste the Image URL to Download">
-            <input type="submit" id="button" value="Download">
+        <form action="index.php" method="POST" class="input-data">
+            <input type="text" id="field" name="file" placeholder="Paste here the Image URL to Download..." autocomplete="off">
+            <input type="submit" id="button" name="downloadBtn" value="Download">
         </form>
     </div>
     <script>
